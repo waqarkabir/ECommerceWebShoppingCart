@@ -1,0 +1,37 @@
+﻿@page "/cart"
+@inject ShoppingCartService CartService
+
+<h3>Client App Cart Page</h3>
+
+<button @onclick="AddSampleItem">Add Sample Item</button>
+
+<ul>
+    @foreach (var item in CartService.Items)
+    {
+        <li>@item.Name - @item.Quantity x @item.Price</li>
+    }
+</ul>
+
+<p>Total: @CartService.Total</p>
+
+<ShoppingCart />
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await CartService.LoadCartAsync();
+    }
+
+    private void AddSampleItem()
+    {
+         CartService.AddItem(new CartItem
+            {
+                Id = 1,
+                Name = "Test Item",
+                Price = 10.0m,
+                Quantity = 1
+            });
+
+        StateHasChanged();
+    }
+}
