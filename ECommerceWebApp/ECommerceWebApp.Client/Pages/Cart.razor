@@ -17,10 +17,6 @@
 <ShoppingCart />
 
 @code {
-    protected override async Task OnInitializedAsync()
-    {
-        await CartService.LoadCartAsync();
-    }
 
     private void AddSampleItem()
     {
